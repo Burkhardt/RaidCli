@@ -1,0 +1,9 @@
+{
+  "name": "raidcli-hydration-verification",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@dr2rai/raid-canvas": "0.8.0",
+    "jsdom": "30.0.1"
+  }
+}

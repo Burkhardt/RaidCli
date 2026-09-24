@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Title>RAI Diagram CLI</Title>
+		<PackageId>RaidCli</PackageId>
+		<Version>4.4.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+		<InformationalVersion>$(Version)</InformationalVersion>
+		<Authors>Rainer Burkhardt</Authors>
+		<Description>RAIkeep CLI for importing PlantUML into canonical .raid manifests and hydratable aim-* SVG.</Description>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Exe</OutputType>
+		<IsPackable>true</IsPackable>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>raid</ToolCommandName>
+		<PackageOutputPath>../artifacts/nuget</PackageOutputPath>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>HardCastle.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/Burkhardt/RaidCli</PackageProjectUrl>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<Copyright>© Rainer Burkhardt</Copyright>
+		<RepositoryUrl>https://github.com/Burkhardt/RaidCli.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageTags>raid;diagram;PlantUML;SVG;CLI;tool</PackageTags>
+		<PackageReleaseNotes>4.4.0 introduces the raid PlantUML import and aim-* validation CLI under CR036.</PackageReleaseNotes>
+		<RAIkeepRoot Condition="'$(RAIkeepRoot)' == '' and Exists('../../RaiDiagram/RaiDiagram.csproj')">../..</RAIkeepRoot>
+		<RaiDiagramProjectPath Condition="'$(RAIkeepRoot)' != '' and Exists('$(RAIkeepRoot)/RaiDiagram/RaiDiagram.csproj')">$(RAIkeepRoot)/RaiDiagram/RaiDiagram.csproj</RaiDiagramProjectPath>
+		<UseLocalRAIkeepSources Condition="'$(UseLocalRAIkeepSources)' == '' and '$(ContinuousIntegrationBuild)' == 'true'">false</UseLocalRAIkeepSources>
+		<UseLocalRAIkeepSources Condition="'$(UseLocalRAIkeepSources)' == '' and '$(RaiDiagramProjectPath)' != ''">true</UseLocalRAIkeepSources>
+		<UseLocalRAIkeepSources Condition="'$(UseLocalRAIkeepSources)' == ''">false</UseLocalRAIkeepSources>
+		<RaiDiagramPackageVersion Condition="'$(RaiDiagramPackageVersion)' == ''">4.4.0</RaiDiagramPackageVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\" Link="README.md" />
+		<None Include="../HardCastle.png" Pack="true" PackagePath="" Link="HardCastle.png" />
+	</ItemGroup>
+
+	<Target Name="ValidateLocalRAIkeepSources"
+		BeforeTargets="Restore"
+		Condition="'$(UseLocalRAIkeepSources)' == 'true'">
+		<Error Condition="'$(RaiDiagramProjectPath)' == ''"
+			Text="UseLocalRAIkeepSources=true requires a RaiDiagram project checkout. Set /p:RAIkeepRoot=/path/to/RAIkeep." />
+	</Target>
+
+	<ItemGroup Condition="'$(UseLocalRAIkeepSources)' == 'true'">
+		<ProjectReference Include="$(RaiDiagramProjectPath)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(UseLocalRAIkeepSources)' != 'true'">
+		<PackageReference Include="RaiDiagram" Version="$(RaiDiagramPackageVersion)" />
+	</ItemGroup>
+
+</Project>

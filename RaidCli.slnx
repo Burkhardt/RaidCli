@@ -1,0 +1,4 @@
+<Solution>
+	<Project Path="raid/raid.csproj" />
+	<Project Path="raid.Tests/raid.Tests.csproj" />
+</Solution>
