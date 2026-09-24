@@ -1,7 +1,5 @@
 # `raid` — RAI Diagram CLI
 
-![RAI logo](HardCastle.png)
-
 `raid` is the first-class RAIkeep command for importing external diagram
 sources into canonical `.raid` manifests and hydratable `aim-*` SVG.
 
