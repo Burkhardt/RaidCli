@@ -31,11 +31,23 @@ end note
 
 if (Solution satisfies consumer requirements?) then (Yes - Accepted)
   :Create Acceptance Evaluation Document;
+  note right
+    Filename: CR<NNN>_Accepted_<Topic>.md
+    Decision: ACCEPTED
+  end note
   :Update package references & close CR loop;
   stop
 else (No - Rejected)
   :Create Rejection Evaluation Document;
+  note right
+    Filename: CR<NNN>_Rejected_<Topic>.md
+    Decision: REJECTED
+  end note
   :Create Follow-up Sub-CR;
+  note right
+    Filename: CR<NNN>.<M>_<Requester>_to_<Provider>_<Topic>.md
+    (References exact parent CR & rejection reason)
+  end note
   detach
 endif
 
