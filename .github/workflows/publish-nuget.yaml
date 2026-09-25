@@ -1,4 +1,4 @@
-name: Publish RaidCli
+name: Publish RaidSeeder
 
 on:
   push:
@@ -41,10 +41,10 @@ jobs:
           fi
 
       - name: Restore
-        run: dotnet restore RaidCli.slnx /p:UseLocalRAIkeepSources=false
+        run: dotnet restore RaidSeeder.slnx /p:UseLocalRAIkeepSources=false
 
       - name: Build
-        run: dotnet build RaidCli.slnx --configuration Release --no-restore /p:UseLocalRAIkeepSources=false
+        run: dotnet build RaidSeeder.slnx --configuration Release --no-restore /p:UseLocalRAIkeepSources=false
 
       - name: Test
         run: dotnet test raid.Tests/raid.Tests.csproj --configuration Release --no-build --no-restore /p:UseLocalRAIkeepSources=false
@@ -142,7 +142,7 @@ jobs:
           if gh release view "${TAG}" >/dev/null 2>&1; then
             echo "GitHub release ${TAG} already exists."
           else
-            gh release create "${TAG}" --title "RaidCli ${VERSION}" --notes "RaidCli ${VERSION} self-contained binaries."
+            gh release create "${TAG}" --title "RaidSeeder ${VERSION}" --notes "RaidSeeder ${VERSION} self-contained binaries."
           fi
 
       - name: Upload release assets

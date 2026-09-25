@@ -1,5 +1,5 @@
 {
-  "name": "raidcli-hydration-verification",
+  "name": "raidseeder-hydration-verification",
   "private": true,
   "type": "module",
   "dependencies": {
